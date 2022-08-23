@@ -16,6 +16,7 @@ model User {
   handle      String @unique
   password    String
   plans       Plan[]
+  posts       Post[]
 }
 
 model Plan {
@@ -24,6 +25,7 @@ model Plan {
   workouts    Workout[]
   user        User?     @relation(fields: [createdBy], references: [id])
   createdBy   String?
+  Post        Post[]
 }
 
 model Workout {
@@ -37,4 +39,14 @@ model WorkoutCategory {
   id          String    @id @default(uuid())
   displayName String
   workouts    Workout[]
+}
+
+model Post {
+  id          String   @id @default(uuid())
+  description String
+  user        User     @relation(fields: [creatorId], references: [id])
+  plan        Plan     @relation(fields: [planId], references: [id])
+  createdAt   DateTime
+  creatorId   String
+  planId      String
 }
