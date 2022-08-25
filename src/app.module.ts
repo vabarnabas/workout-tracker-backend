@@ -6,6 +6,9 @@ import { UserModule } from './user/user.module';
 import { PlanModule } from './plan/plan.module';
 import { WorkoutModule } from './workout/workout.module';
 import { CategoryModule } from './category/category.module';
+import { AuthModule } from './auth/auth.module';
+import { AtGuard, PermissionGuard } from './common/guards';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -14,8 +17,19 @@ import { CategoryModule } from './category/category.module';
     PlanModule,
     WorkoutModule,
     CategoryModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: AtGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: PermissionGuard,
+    },
+  ],
 })
 export class AppModule {}

@@ -11,12 +11,16 @@ import {
 import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { genSalt, hash } from 'bcrypt';
+import { UserService } from './user.service';
 // import { PermissionType } from 'src/common/types/permission.types';
 // import { Permit } from 'src/common/decorators/permit.decorator';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private userService: UserService,
+  ) {}
 
   @Get()
   findAll(): Promise<User[]> {
@@ -37,16 +41,8 @@ export class UserController {
 
   @Post()
   // @Permit(PermissionType.UserManagement)
-  async create(@Body() createUserInput: User) {
-    if (createUserInput?.password) {
-      const salt = await genSalt();
-      createUserInput.password = await hash(createUserInput.password, salt);
-    }
-
-    return await this.prismaService.user.create({
-      data: createUserInput,
-      include: { plans: true },
-    });
+  create(@Body() createUserInput: User) {
+    return this.userService.create(createUserInput);
   }
 
   @Patch(':id')
