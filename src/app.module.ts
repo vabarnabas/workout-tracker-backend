@@ -9,6 +9,7 @@ import { CategoryModule } from './category/category.module';
 import { AuthModule } from './auth/auth.module';
 import { AtGuard, PermissionGuard } from './common/guards';
 import { APP_GUARD } from '@nestjs/core';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { APP_GUARD } from '@nestjs/core';
     WorkoutModule,
     CategoryModule,
     AuthModule,
+    SearchModule,
   ],
   controllers: [AppController],
   providers: [
