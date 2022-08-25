@@ -25,7 +25,7 @@ export class AuthService {
           displayName,
           // permissions,
         },
-        { secret: 'at-secret', expiresIn: 60 * 60 },
+        { secret: 'at-secret', expiresIn: 60 * 60 * 24 * 7 },
       ),
       this.jwtService.signAsync(
         {
@@ -34,7 +34,7 @@ export class AuthService {
           displayName,
           // permissions,
         },
-        { secret: 'rt-secret', expiresIn: 60 * 60 * 24 * 7 },
+        { secret: 'rt-secret', expiresIn: 60 * 60 * 24 * 8 },
       ),
     ]);
 
