@@ -12,6 +12,22 @@ const user: User = {
   refreshToken: null,
 };
 
+const categories = [
+  'Abdominals',
+  'Back',
+  'Biceps',
+  'Calves',
+  'Chest',
+  'Core',
+  'Glutes',
+  'Hamstrings',
+  'Lats',
+  'Quads',
+  'Shoulders',
+  'Traps',
+  'Triceps',
+];
+
 const main = async () => {
   console.log('Started Seeding...');
   if (user.password) {
@@ -19,12 +35,13 @@ const main = async () => {
     user.password = await hash(user.password, salt);
   }
 
-  console.log(user);
-
   await prisma.user.create({
     data: user,
   });
-  console.log('Seeding Done!');
+
+  categories.forEach(async (category) => {
+    await prisma.workoutCategory.create({ data: { displayName: category } });
+  });
 };
 
 main()

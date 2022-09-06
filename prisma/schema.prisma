@@ -32,6 +32,7 @@ model Plan {
 model Workout {
   id          String            @id @default(uuid())
   displayName String
+  verified    Boolean
   plans       Plan[]
   categories  WorkoutCategory[]
 }
