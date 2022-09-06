@@ -38,7 +38,7 @@ model Workout {
 
 model WorkoutCategory {
   id          String    @id @default(uuid())
-  displayName String
+  displayName String    @unique
   workouts    Workout[]
 }
 
