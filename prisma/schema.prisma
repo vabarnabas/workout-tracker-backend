@@ -23,6 +23,7 @@ model User {
 model Plan {
   id          String    @id @default(uuid())
   displayName String
+  description String
   workouts    Workout[]
   user        User?     @relation(fields: [createdBy], references: [id])
   createdBy   String?
