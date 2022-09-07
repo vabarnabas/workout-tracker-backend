@@ -20,15 +20,7 @@ export class PlanController {
     return this.prismaService.plan.findMany({
       include: {
         user: true,
-        workouts: {
-          select: {
-            id: true,
-            displayName: true,
-            plans: true,
-            verified: true,
-            categories: true,
-          },
-        },
+        workouts: { include: { categories: true } },
       },
     });
   }
@@ -39,15 +31,7 @@ export class PlanController {
       where: { id },
       include: {
         user: true,
-        workouts: {
-          select: {
-            id: true,
-            displayName: true,
-            plans: true,
-            verified: true,
-            categories: true,
-          },
-        },
+        workouts: { include: { categories: true } },
       },
     });
 
@@ -62,15 +46,7 @@ export class PlanController {
       data: createPlanInput,
       include: {
         user: true,
-        workouts: {
-          select: {
-            id: true,
-            displayName: true,
-            plans: true,
-            verified: true,
-            categories: true,
-          },
-        },
+        workouts: { include: { categories: true } },
       },
     });
   }
@@ -81,15 +57,7 @@ export class PlanController {
       where: { id },
       include: {
         user: true,
-        workouts: {
-          select: {
-            id: true,
-            displayName: true,
-            plans: true,
-            verified: true,
-            categories: true,
-          },
-        },
+        workouts: { include: { categories: true } },
       },
     });
 
@@ -100,15 +68,7 @@ export class PlanController {
       data: updatePlanInput,
       include: {
         user: true,
-        workouts: {
-          select: {
-            id: true,
-            displayName: true,
-            plans: true,
-            verified: true,
-            categories: true,
-          },
-        },
+        workouts: { include: { categories: true } },
       },
     });
   }
@@ -120,15 +80,7 @@ export class PlanController {
       where: { id },
       include: {
         user: true,
-        workouts: {
-          select: {
-            id: true,
-            displayName: true,
-            plans: true,
-            verified: true,
-            categories: true,
-          },
-        },
+        workouts: { include: { categories: true } },
       },
     });
   }
