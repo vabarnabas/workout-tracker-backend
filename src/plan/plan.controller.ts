@@ -18,7 +18,18 @@ export class PlanController {
   @Get()
   findAll(): Promise<Plan[]> {
     return this.prismaService.plan.findMany({
-      include: { user: true, workouts: true },
+      include: {
+        user: true,
+        workouts: {
+          select: {
+            id: true,
+            displayName: true,
+            plans: true,
+            verified: true,
+            categories: true,
+          },
+        },
+      },
     });
   }
 
@@ -26,7 +37,18 @@ export class PlanController {
   async findSpecificById(@Param('id') id: string): Promise<Plan> {
     const plan = await this.prismaService.plan.findUnique({
       where: { id },
-      include: { user: true, workouts: true },
+      include: {
+        user: true,
+        workouts: {
+          select: {
+            id: true,
+            displayName: true,
+            plans: true,
+            verified: true,
+            categories: true,
+          },
+        },
+      },
     });
 
     if (!plan) throw new ForbiddenException('Acces denied.');
@@ -38,7 +60,18 @@ export class PlanController {
   async create(@Body() createPlanInput: Plan) {
     return await this.prismaService.plan.create({
       data: createPlanInput,
-      include: { user: true, workouts: true },
+      include: {
+        user: true,
+        workouts: {
+          select: {
+            id: true,
+            displayName: true,
+            plans: true,
+            verified: true,
+            categories: true,
+          },
+        },
+      },
     });
   }
 
@@ -46,7 +79,18 @@ export class PlanController {
   async update(@Param('id') id: string, @Body() updatePlanInput: Plan) {
     const plan = await this.prismaService.plan.findUnique({
       where: { id },
-      include: { user: true, workouts: true },
+      include: {
+        user: true,
+        workouts: {
+          select: {
+            id: true,
+            displayName: true,
+            plans: true,
+            verified: true,
+            categories: true,
+          },
+        },
+      },
     });
 
     if (!plan) throw new ForbiddenException('Access denied.');
@@ -54,7 +98,18 @@ export class PlanController {
     return await this.prismaService.plan.update({
       where: { id: plan.id },
       data: updatePlanInput,
-      include: { user: true, workouts: true },
+      include: {
+        user: true,
+        workouts: {
+          select: {
+            id: true,
+            displayName: true,
+            plans: true,
+            verified: true,
+            categories: true,
+          },
+        },
+      },
     });
   }
 
@@ -63,7 +118,18 @@ export class PlanController {
   async remove(@Param('id') id: string) {
     return await this.prismaService.plan.delete({
       where: { id },
-      include: { user: true, workouts: true },
+      include: {
+        user: true,
+        workouts: {
+          select: {
+            id: true,
+            displayName: true,
+            plans: true,
+            verified: true,
+            categories: true,
+          },
+        },
+      },
     });
   }
 }
