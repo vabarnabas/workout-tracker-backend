@@ -24,7 +24,7 @@ export class SearchController {
     const planResults = searchPlans.map((plan) => {
       return { id: plan.id, displayName: plan.displayName, group: 'Plan' };
     });
-    const searchWorkouts = await this.prismaService.workout.findMany({
+    const searchWorkouts = await this.prismaService.collection.findMany({
       where: { displayName: { contains: query } },
     });
     const workoutResults = searchWorkouts.map((workout) => {

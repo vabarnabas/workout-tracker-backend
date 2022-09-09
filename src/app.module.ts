@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { AtGuard, PermissionGuard } from './common/guards';
 import { APP_GUARD } from '@nestjs/core';
 import { SearchModule } from './search/search.module';
+import { CollectionController } from './collection/collection.controller';
+import { CollectionModule } from './collection/collection.module';
 
 @Module({
   imports: [
@@ -20,8 +22,9 @@ import { SearchModule } from './search/search.module';
     CategoryModule,
     AuthModule,
     SearchModule,
+    CollectionModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, CollectionController],
   providers: [
     AppService,
     {

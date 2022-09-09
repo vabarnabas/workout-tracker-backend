@@ -20,6 +20,16 @@ CREATE TABLE "Plan" (
 );
 
 -- CreateTable
+CREATE TABLE "Collection" (
+    "id" TEXT NOT NULL,
+    "displayName" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "createdBy" TEXT,
+
+    CONSTRAINT "Collection_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Workout" (
     "id" TEXT NOT NULL,
     "displayName" TEXT NOT NULL,
@@ -54,6 +64,12 @@ CREATE TABLE "_PlanToWorkout" (
 );
 
 -- CreateTable
+CREATE TABLE "_CollectionToPlan" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
+
+-- CreateTable
 CREATE TABLE "_WorkoutToWorkoutCategory" (
     "A" TEXT NOT NULL,
     "B" TEXT NOT NULL
@@ -72,6 +88,12 @@ CREATE UNIQUE INDEX "_PlanToWorkout_AB_unique" ON "_PlanToWorkout"("A", "B");
 CREATE INDEX "_PlanToWorkout_B_index" ON "_PlanToWorkout"("B");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "_CollectionToPlan_AB_unique" ON "_CollectionToPlan"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_CollectionToPlan_B_index" ON "_CollectionToPlan"("B");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "_WorkoutToWorkoutCategory_AB_unique" ON "_WorkoutToWorkoutCategory"("A", "B");
 
 -- CreateIndex
@@ -79,6 +101,9 @@ CREATE INDEX "_WorkoutToWorkoutCategory_B_index" ON "_WorkoutToWorkoutCategory"(
 
 -- AddForeignKey
 ALTER TABLE "Plan" ADD CONSTRAINT "Plan_createdBy_fkey" FOREIGN KEY ("createdBy") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Collection" ADD CONSTRAINT "Collection_createdBy_fkey" FOREIGN KEY ("createdBy") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Post" ADD CONSTRAINT "Post_creatorId_fkey" FOREIGN KEY ("creatorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -91,6 +116,12 @@ ALTER TABLE "_PlanToWorkout" ADD CONSTRAINT "_PlanToWorkout_A_fkey" FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE "_PlanToWorkout" ADD CONSTRAINT "_PlanToWorkout_B_fkey" FOREIGN KEY ("B") REFERENCES "Workout"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_CollectionToPlan" ADD CONSTRAINT "_CollectionToPlan_A_fkey" FOREIGN KEY ("A") REFERENCES "Collection"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_CollectionToPlan" ADD CONSTRAINT "_CollectionToPlan_B_fkey" FOREIGN KEY ("B") REFERENCES "Plan"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_WorkoutToWorkoutCategory" ADD CONSTRAINT "_WorkoutToWorkoutCategory_A_fkey" FOREIGN KEY ("A") REFERENCES "Workout"("id") ON DELETE CASCADE ON UPDATE CASCADE;

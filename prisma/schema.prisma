@@ -12,23 +12,34 @@ datasource db {
 }
 
 model User {
-  id           String  @id @default(uuid())
+  id           String       @id @default(uuid())
   displayName  String
-  handle       String  @unique
+  handle       String       @unique
   password     String
   plans        Plan[]
+  collections  Collection[]
   posts        Post[]
   refreshToken String?
 }
 
 model Plan {
-  id          String    @id @default(uuid())
+  id          String       @id @default(uuid())
   displayName String
   description String
   workouts    Workout[]
-  user        User?     @relation(fields: [createdBy], references: [id])
+  user        User?        @relation(fields: [createdBy], references: [id])
   createdBy   String?
-  Post        Post[]
+  posts       Post[]
+  collections Collection[]
+}
+
+model Collection {
+  id          String  @id @default(uuid())
+  displayName String
+  description String
+  plans       Plan[]
+  user        User?   @relation(fields: [createdBy], references: [id])
+  createdBy   String?
 }
 
 model Workout {
