@@ -12,6 +12,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { SearchModule } from './search/search.module';
 import { CollectionController } from './collection/collection.controller';
 import { CollectionModule } from './collection/collection.module';
+import { PostController } from './post/post.controller';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -23,8 +25,9 @@ import { CollectionModule } from './collection/collection.module';
     AuthModule,
     SearchModule,
     CollectionModule,
+    PostModule,
   ],
-  controllers: [AppController, CollectionController],
+  controllers: [AppController, CollectionController, PostController],
   providers: [
     AppService,
     {
