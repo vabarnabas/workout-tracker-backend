@@ -11,7 +11,7 @@ import {
 import { Collection } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
-@Controller('collection')
+@Controller('collections')
 export class CollectionController {
   constructor(private readonly prismaService: PrismaService) {}
 
